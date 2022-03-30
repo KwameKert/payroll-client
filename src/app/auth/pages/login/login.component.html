@@ -1,0 +1,81 @@
+<div class="h-full w-full flex flex-col justify-center items-center bg-image">
+  <div class="w-[25rem] p-8 card rounded-2xl bg-white">
+    <form
+      class="h-full"
+      [formGroup]="loginForm"
+      (ngSubmit)="login(loginForm.value)"
+    >
+      <app-auth-header
+        [headline]="name ? name : 'Welcome back'"
+        [description]="
+          name
+            ? 'Enter your password to continue'
+            : 'Enter your credentials to sign in'
+        "
+      ></app-auth-header>
+      <div class="mt-10" *ngIf="!hasAccount">
+        <app-base-input-field
+          label="Phone number"
+          hint="Your registered Phone number"
+          type="tel"
+          [control]="loginForm.controls['username']"
+        ></app-base-input-field>
+      </div>
+      <div class="mt-5">
+        <app-base-input-field
+          label="Password"
+          hint="Passwords are case sensitive"
+          type="password"
+          [control]="loginForm.controls['password']"
+        ></app-base-input-field>
+      </div>
+      <p class="text-sm text-gray-400">
+        Forgot password?<a
+          href="javascript:void(0)"
+          class="text-sm text-gray-400 hover:text-blue-700"
+        >
+          Reset it</a
+        >
+      </p>
+      <p class="text-sm text-gray-400">
+        You don't have an account?
+        <a
+          href="javascript:void(0)"
+          class="text-sm text-gray-400 hover:text-blue-700"
+        >
+          Sign up here</a
+        >
+      </p>
+
+      <div class="mt-10 hidden md:block">
+        <app-base-button
+          buttonClass="font-bold text-base btn-primary w-full"
+          buttonText="Sign in"
+          buttonType="submit"
+          color="primary"
+          [isDisabled]="!loginForm.valid"
+          [isLoading]="isLoggingIn"
+          loadingText="Signing in"
+        ></app-base-button>
+      </div>
+
+      <!-- Mobile View -->
+      <div
+        class="bottom-0 w-full fixed bg-darker py-3 px-2 grid grid-cols-2 gap-5 md:hidden"
+      >
+        <div>
+          <app-base-button
+            *ngIf="hasAccount"
+            buttonClass="font-bold text-base btn-primary w-full"
+            buttonText="Sign in"
+            buttonType="submit"
+            color="primary"
+            [isDisabled]="loginForm.invalid"
+            [isLoading]="isLoggingIn"
+            loadingText="Signing in"
+          ></app-base-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
