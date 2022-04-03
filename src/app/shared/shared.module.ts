@@ -4,11 +4,13 @@ import { BaseButtonComponent } from './components/base-button/base-button.compon
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseInputFieldComponent } from './components/base-input-field/base-input-field.component';
+import { BaseTableComponent } from './components/base-table/base-table.component';
 @NgModule({
   declarations: [
     BaseButtonComponent,
     BaseInputFieldComponent,
     BaseButtonComponent,
+    BaseTableComponent,
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   exports: [

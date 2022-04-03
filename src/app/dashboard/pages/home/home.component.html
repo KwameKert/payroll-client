@@ -1,1 +1,22 @@
-<p>home works!</p>
+<div class="section-container flex flex-col gap-6">
+  <div class="grid grid-cols-3 gap-4">
+    <app-main-widget
+      header="Available to payout"
+      main="$10.3K"
+      footer="$2.4k will be available soon"
+    ></app-main-widget>
+    <app-main-widget
+      header="Today revenue"
+      main="$3.6K"
+      footer="22 requests"
+    ></app-main-widget>
+    <app-main-widget
+      header="Today session"
+      main="33"
+      footer="2 visitors right now"
+    ></app-main-widget>
+  </div>
+  <div class="card rounded-2xl bg-white p-5">
+    <app-listings></app-listings>
+  </div>
+</div>

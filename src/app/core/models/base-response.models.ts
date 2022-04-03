@@ -1,6 +1,7 @@
 export interface BaseResponseObject<T> {
   message: string;
   data: T;
+  status: number;
   listData: T[];
 }
 

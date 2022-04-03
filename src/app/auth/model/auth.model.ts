@@ -3,6 +3,13 @@ export class LoginParams {
   password!: string;
 }
 
+export class SignupParams {
+  firstName!: string;
+  lastName!: string;
+  emailAddress!: string;
+  password!: string;
+}
+
 export interface LoginResponseData {
   user: User;
   token: string;

@@ -1,24 +1,38 @@
 <div class="h-full w-full flex flex-col justify-center items-center bg-image">
-  <div class="w-[25rem] p-8 card rounded-2xl bg-white">
+  <div class="w-[45rem] p-8 card rounded-2xl bg-white">
     <form
       class="h-full"
-      [formGroup]="loginForm"
-      (ngSubmit)="login(loginForm.value)"
+      [formGroup]="signupForm"
+      (ngSubmit)="signUp(signupForm.value)"
     >
       <app-auth-header
         [headline]="name ? name : 'Welcome back'"
         [description]="
           name
-            ? 'Enter your password to continue'
+            ? 'Enter your details to continue'
             : 'Enter your credentials to sign in'
         "
       ></app-auth-header>
       <div class="mt-10" *ngIf="!hasAccount">
         <app-base-input-field
-          label="Phone number"
-          hint="Your registered Phone number"
+          label="First name"
+          hint="Your first name"
           type="tel"
-          [control]="loginForm.controls['username']"
+          [control]="signupForm.controls['firstName']"
+        ></app-base-input-field>
+      </div>
+      <div class="mt-5">
+        <app-base-input-field
+          label="Last name"
+          hint="Your last name"
+          [control]="signupForm.controls['lastName']"
+        ></app-base-input-field>
+      </div>
+      <div class="mt-5">
+        <app-base-input-field
+          label="Email"
+          hint="Email address "
+          [control]="signupForm.controls['emailAddress']"
         ></app-base-input-field>
       </div>
       <div class="mt-5">
@@ -26,37 +40,35 @@
           label="Password"
           hint="Passwords are case sensitive"
           type="password"
-          [control]="loginForm.controls['password']"
+          [control]="signupForm.controls['password']"
+        ></app-base-input-field>
+      </div>
+      <div class="mt-5">
+        <app-base-input-field
+          label="Confirm Password"
+          hint="Passwords are case sensitive"
+          type="password"
         ></app-base-input-field>
       </div>
       <p class="text-sm text-gray-400">
-        Forgot password?<a
+        Already having account?<a
           href="javascript:void(0)"
+          [routerLink]="['/login']"
           class="text-sm text-gray-400 hover:text-blue-700"
         >
-          Reset it</a
-        >
-      </p>
-      <p class="text-sm text-gray-400">
-        You don't have an account?
-        <a
-          [routerLink]="['/register']"
-          href="javascript:void(0)"
-          class="text-sm text-gray-400 hover:text-blue-700"
-        >
-          Sign up here</a
-        >
+          Login
+        </a>
       </p>
 
       <div class="mt-10 hidden md:block">
         <app-base-button
           buttonClass="font-bold text-base btn-primary w-full"
-          buttonText="Sign in"
+          buttonText="Register"
           buttonType="submit"
           color="primary"
-          [isDisabled]="!loginForm.valid"
+          [isDisabled]="!signupForm.valid"
           [isLoading]="isLoggingIn"
-          loadingText="Signing in"
+          loadingText="Creating account"
         ></app-base-button>
       </div>
 
@@ -68,12 +80,12 @@
           <app-base-button
             *ngIf="hasAccount"
             buttonClass="font-bold text-base btn-primary w-full"
-            buttonText="Sign in"
+            buttonText="Register"
             buttonType="submit"
             color="primary"
-            [isDisabled]="loginForm.invalid"
+            [isDisabled]="signupForm.invalid"
             [isLoading]="isLoggingIn"
-            loadingText="Signing in"
+            loadingText="Creating acccount"
           ></app-base-button>
         </div>
       </div>

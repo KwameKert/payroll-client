@@ -5,10 +5,12 @@ import {
   LoginParams,
   LoginResponse,
   LoginResponseData,
+  SignupParams,
   User,
 } from '../model/auth.model';
 import { environment } from 'src/environments/environment';
 import { StoreKeys } from 'src/app/shared/contants';
+import { BaseResponseObject } from 'src/app/core/models/base-response.models';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +23,21 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signIn(credentials: LoginParams): Observable<LoginResponse | unknown> {
+    return this.http
+      .post<LoginResponse>(`${environment.baseApi}/login`, credentials)
+      .pipe(
+        map((loginResponse: LoginResponse) => {
+          this.setUser(loginResponse.data);
+          this.announceLogin(true);
+          return loginResponse.data;
+        }),
+        catchError((error) => of(console.log('error', error)))
+      );
+  }
+
+  signUp(
+    credentials: SignupParams
+  ): Observable<BaseResponseObject<User> | unknown> {
     return this.http
       .post<LoginResponse>(`${environment.baseApi}/login`, credentials)
       .pipe(

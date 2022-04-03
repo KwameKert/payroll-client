@@ -3,20 +3,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppRouteNames } from 'src/app/shared/routes';
-import { LoginParams } from '../../model/auth.model';
+import { LoginParams, SignupParams } from '../../model/auth.model';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class SignupComponent implements OnInit {
   subscriptions: Subscription[] = [];
   hasAccount = false;
-  loginForm!: FormGroup;
+  signupForm!: FormGroup;
   isLoggingIn = false;
-  name: any;
+  name: any = 'Create an account';
 
   constructor(
     private router: Router,
@@ -25,17 +25,17 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.setupLoginForm();
+    this.setupSignupForm();
   }
 
-  login(loginCredentials: LoginParams): void {
-    console.log('credentials here --> ', loginCredentials);
-    if (!loginCredentials.password) {
+  signUp(signupCredentials: SignupParams): void {
+    console.log('credentials here --> ', signupCredentials);
+    if (!signupCredentials.password) {
       return;
     }
     this.isLoggingIn = true;
     this.subscriptions.push(
-      this.authService.signIn(loginCredentials).subscribe(
+      this.authService.signUp(signupCredentials).subscribe(
         (data: any) => {
           this.router.navigateByUrl(`/${AppRouteNames.Dashboard}`, {
             replaceUrl: true,
@@ -43,18 +43,17 @@ export class LoginComponent implements OnInit {
         },
         () => {},
         () => {
-          this.isLoggingIn = false;
+          // this.isLoggingIn = false;
         }
       )
     );
-    this.router.navigateByUrl(`/${AppRouteNames.Dashboard}`, {
-      replaceUrl: true,
-    });
   }
-  private setupLoginForm(): void {
-    this.loginForm = this.fb.group({
-      username: [null, Validators.required],
+  private setupSignupForm(): void {
+    this.signupForm = this.fb.group({
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required],
       password: [null, Validators.required],
+      emailAddress: [null, Validators.required],
     });
   }
 
